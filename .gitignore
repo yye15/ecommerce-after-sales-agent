@@ -1,0 +1,47 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Logs and runtime outputs
+*.log
+*.job.log
+logs/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+.conda/
+
+# Local IDE files
+.idea/
+.vscode/
+
+# Large/private data and models
+data/raw/
+data/labeled/
+data/tmp/
+models/
+external/
+checkpoints/
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+
+# Streamlit runtime
+.streamlit/secrets.toml
+

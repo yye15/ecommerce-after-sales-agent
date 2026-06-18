@@ -1,0 +1,27 @@
+{
+  "total": 100,
+  "category_accuracy": 0.94,
+  "category_exact_accuracy": 0.59,
+  "risk_accuracy": 1.0,
+  "priority_accuracy": 0.96,
+  "high_risk_recall": 1.0,
+  "high_risk_precision": 1.0,
+  "high_risk_f1": 1.0,
+  "under_risk_count": 0,
+  "over_risk_count": 0,
+  "severe_under_risk_count": 0,
+  "under_risk_rate": 0.0,
+  "over_risk_rate": 0.0,
+  "average_latency_ms": 18.696699999999996,
+  "average_score": 0.984,
+  "expected_risk_distribution": {
+    "低风险": 36,
+    "高风险": 25,
+    "中风险": 39
+  },
+  "actual_risk_distribution": {
+    "低风险": 36,
+    "高风险": 25,
+    "中风险": 39
+  }
+}
