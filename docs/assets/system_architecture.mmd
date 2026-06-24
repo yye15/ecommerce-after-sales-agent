@@ -1,0 +1,52 @@
+flowchart LR
+    U["用户输入<br/>评论 / 售后对话 / 投诉"] --> UI["Streamlit 演示界面"]
+    UI --> G["LangGraph 售后 Agent 工作流"]
+
+    subgraph WG["LangGraph 节点层"]
+        A["输入理解<br/>清洗文本 / 识别意图"] --> B["细粒度情感分析<br/>aspect / opinion / sentiment"]
+        B --> C["问题分类<br/>质量 / 物流 / 客服 / 退款等"]
+        C --> D["风险评估<br/>低 / 中 / 高风险 + P1/P2/P3"]
+        D --> E["RAG 政策检索<br/>售后政策 / 话术模板"]
+        E --> F{"是否需要人工升级"}
+        F -->|是| H["人工升级建议<br/>主管介入 / 优先处理"]
+        F -->|否| I["售后策略生成<br/>退款 / 补偿 / 催物流 / 安抚"]
+        H --> I
+        I --> J["客服回复生成<br/>结合政策依据生成中文话术"]
+        J --> K["结果汇总<br/>结构化 JSON + 页面展示"]
+    end
+
+    G --> A
+
+    subgraph AI["模型与算法能力"]
+        LLM["DeepSeek API<br/>结构化理解与回复生成"]
+        LALUN["LALUN Adapter<br/>中文 ASTE 实验接入"]
+        RULES["业务规则引擎<br/>风险评分与优先级"]
+    end
+
+    B -.-> LLM
+    B -.-> LALUN
+    C -.-> RULES
+    D -.-> RULES
+    J -.-> LLM
+
+    subgraph KB["知识库与数据层"]
+        POLICY["本地售后政策知识库<br/>data/knowledge/*.md"]
+        EVAL["人工评估集<br/>100 条客服/售后样例"]
+        DATA["中文评论与对话数据<br/>MARC / JDDC 样例"]
+    end
+
+    E -.-> POLICY
+
+    K --> OUT1["单条分析结果<br/>情感三元组 / 风险 / 策略 / 回复"]
+    UI --> OUT2["批量运营分析<br/>风险分布 / 高频问题 / 改进建议"]
+
+    subgraph QA["评估与工程化"]
+        TEST["pytest 测试<br/>规则 / RAG / LALUN / 流程"]
+        METRIC["批量评估脚本<br/>分类准确率 / 风险准确率"]
+        DOC["README + 面试文档<br/>架构 / 指标 / Demo Cases"]
+    end
+
+    EVAL --> METRIC
+    DATA --> METRIC
+    METRIC --> DOC
+    TEST --> DOC
